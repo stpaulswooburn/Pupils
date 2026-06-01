@@ -8,7 +8,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="/_sdk/element_sdk.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&amp;family=Nunito:wght@400;600;700&amp;display=swap" rel="stylesheet">
   <style>
     body {
       box-sizing: border-box;
@@ -30,11 +30,11 @@
     .portal-wrapper {
       min-height: 100%;
       width: 100%;
-      font-family: 'Fredoka', sans-serif;
+      font-family: 'Nunito', sans-serif;
     }
 
     .portal-title {
-      font-family: 'Fredoka', sans-serif;
+      font-family: 'Baloo 2', cursive;
     }
 
     .tile {
@@ -213,7 +213,7 @@
       text_color: '#102A43',
       primary_action: '#007BFF',
       secondary_action: '#4A90E2',
-      font_family: 'Fredoka',
+      font_family: 'Baloo 2',
       font_size: 16,
       page_title: "St Paul's Pupil Portal",
       page_subtitle: 'Click a tile to start exploring! 🚀'
@@ -239,9 +239,10 @@
       if (subtitleEl) subtitleEl.textContent = config.page_subtitle || defaultConfig.page_subtitle;
 
       const customFont = config.font_family || defaultConfig.font_family;
-      const bodyStack = `${customFont}, sans-serif`;
+      const titleStack = `${customFont}, cursive`;
+      const bodyStack = `Nunito, ${customFont}, sans-serif`;
 
-      document.querySelectorAll('.portal-title').forEach(el => { el.style.fontFamily = bodyStack; });
+      document.querySelectorAll('.portal-title').forEach(el => { el.style.fontFamily = titleStack; });
       document.querySelector('.portal-wrapper').style.fontFamily = bodyStack;
 
       const baseSize = config.font_size || defaultConfig.font_size;
@@ -281,5 +282,3 @@
   </script>
  </body>
 </html>
-
-```
