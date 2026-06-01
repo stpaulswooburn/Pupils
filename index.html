@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stokenchurch Learning Portal</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&amp;family=Nunito:wght@400;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-color: #1B5E20;
+      --card-color: #FFFFFF;
+      --text-color: #81C784;
+      --primary-action: #2E7D32;
+      --secondary-action: #81C784;
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+
+    .portal-wrapper {
+      min-height: 100%;
+      width: 100%;
+      font-family: 'Nunito', sans-serif;
+    }
+
+    .portal-title {
+      font-family: 'Baloo 2', cursive;
+    }
+
+    .tile {
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+      animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+
+    .tile:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+    }
+
+    .tile:active {
+      transform: translateY(-2px) scale(0.98);
+    }
+
+    @keyframes popIn {
+      0% { opacity: 0; transform: scale(0.7) translateY(20px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    /* Animation delays for tiles */
+    .tile:nth-child(1) { animation-delay: 0.05s; }
+    .tile:nth-child(2) { animation-delay: 0.1s; }
+    .tile:nth-child(3) { animation-delay: 0.15s; }
+    .tile:nth-child(4) { animation-delay: 0.2s; }
+    .tile:nth-child(5) { animation-delay: 0.25s; }
+    .tile:nth-child(6) { animation-delay: 0.3s; }
+    .tile:nth-child(7) { animation-delay: 0.35s; }
+    .tile:nth-child(8) { animation-delay: 0.4s; }
+    .tile:nth-child(9) { animation-delay: 0.45s; }
+    .tile:nth-child(10) { animation-delay: 0.5s; }
+    .tile:nth-child(11) { animation-delay: 0.55s; }
+    .tile:nth-child(12) { animation-delay: 0.6s; }
+    .tile:nth-child(13) { animation-delay: 0.65s; }
+    .tile:nth-child(14) { animation-delay: 0.7s; }
+    .tile:nth-child(15) { animation-delay: 0.75s; }
+    .tile:nth-child(16) { animation-delay: 0.8s; }
+    .tile:nth-child(17) { animation-delay: 0.85s; }
+
+    .tile-icon {
+      font-size: 2.8rem;
+      line-height: 1;
+    }
+
+    .blob-bg {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.3;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .float-icon {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .tile:nth-child(even) .float-icon {
+      animation-delay: 0.5s;
+    }
+
+    .star-decor {
+      position: absolute;
+      opacity: 0.15;
+      pointer-events: none;
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div class="portal-wrapper overflow-auto" id="app-wrapper" style="background-color: var(--bg-color);"><div class="blob-bg" style="width:300px;height:300px;top:-50px;left:-80px;background:#FF6B6B;"></div>
+    <div class="blob-bg" style="width:250px;height:250px;bottom:10%;right:-60px;background:#7EC8E3;"></div>
+    <div class="blob-bg" style="width:200px;height:200px;top:40%;left:50%;background:#FFD93D;"></div>
+    <div class="relative z-10 w-full max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+     <header class="text-center mb-10">
+      <div class="inline-block relative">
+  <span class="star-decor text-3xl" style="top:-14px;left:-24px;">⭐</span> 
+  <span class="star-decor text-xl" style="top:-8px;right:-20px;">✨</span>
+
+  <h1 id="page-title" class="portal-title text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight" style="color: #81C784;">
+    Stokenchurch Primary School Learning Portal
+  </h1>
+</div>
+      <p id="page-subtitle" class="mt-3 text-lg sm:text-xl font-semibold" style="color: #FFFFFF;">Click a tile to start exploring! 🚀</p>
+     </header>
+     <main>
+      <nav aria-label="Learning websites">
+       <ul id="tile-grid" class="grid gap-4 sm:gap-5 lg:gap-6 list-none p-0 m-0 auto-rows-fr" style="grid-template-columns: repeat(6, 1fr);">
+        
+<li class="w-full"><a href="https://barefootgames.org/" target="_blank" rel="noopener noreferrer" class="tile block rounded-2xl p-5 text-center no-underline cursor-pointer flex flex-col h-full" style="background: var(--card-color); border: 3px solid #2E7D32; color: var(--text-color);">
+    <div class="tile-icon float-icon mb-3" style="display: flex; align-items: center; justify-content: center;"><img src="https://www.google.com/s2/favicons?sz=128&amp;domain_url=https%3A%2F%2Fbarefootgames.org" alt="Barefoot Games" loading="lazy" style="max-width: 64px; max-height: 64px; width: 64px; height: 64px;" onerror="this.style.display='none'; this.parentElement.textContent='🎮';">
+    </div><h2 class="portal-title text-base sm:text-lg font-bold leading-tight break-words">Barefoot Games</h2><p class="text-xs sm:text-sm mt-1 opacity-70">Educational games</p></a></li>
+
+<li class="w-full"><a href="https://canva.com/" target="_blank" rel="noopener noreferrer" class="tile block rounded-2xl p-5 text-center no-underline cursor-pointer flex flex-col h-full" style="background: var(--card-color); border: 3px solid #2E7D32; color: var(--text-color);">
+    <div class="tile-icon float-icon mb-3" style="display: flex; align-items: center; justify-content: center;"><img src="https://www.google.com/s2/favicons?sz=64&amp;domain_url=http%3A%2F%2Fcanva.com" alt="Canva" loading="lazy" style="max-width: 64px; max-height: 64px; width: 64px; height: 64px;" onerror="this.style.display='none'; this.parentElement.textContent='🎨';">
+    </div><h2 class="portal-title text-base sm:text-lg font-bold leading-snug break-words">Canva</h2><p class="text-xs sm:text-sm mt-1 opacity-70">Design</p></a></li>
+
+<li class="w-full"><a href="https://www.bbc.co.uk/cbbc/games" target="_blank" rel="noopener noreferrer" class="tile block rounded-2xl p-5 text-center no-underline cursor-pointer flex flex-col h-full" style="background: var(--card-color); border: 3px solid #81C784; color: var(--text-color);">
+    <div class="tile-icon float-icon mb-3" style="display: flex; align-items: center; justify-content: center;"><img src="https://www.google.com/s2/favicons?sz=128&domain_url=https%3A%2F%2Fwww.bbc.co.uk%2Fcbbc%2Fgames" alt="CBBC Games" loading="lazy" style="max-width: 64px; max-height: 64px; width: 64px; height: 64px;" onerror="this.style.display='none'; this.parentElement.textContent='🕹️';">
+    </div><h2 class="portal-title text-base sm:text-lg font-bold leading-snug break-words">CBBC Games</h2><p class="text-xs sm:text-sm mt-1 opacity-70">CBBC Games</p></a></li>
+
+<li class="w-full"><a href="https://www.bbc.co.uk/games/interactive/activity-dance-mat-typing" target="_blank" rel="noopener noreferrer" class="tile block rounded-2xl p-5 text-center no-underline cursor-pointer flex flex-col h-full" style="background: var(--card-color); border: 3px solid #2E7D32; color: var(--text-color);">
+    <div class="tile-icon float-icon mb-3" style="display: flex; align-items: center; justify-content: center;"><img src="https://www.google.com/s2/favicons?sz=128&amp;domain_url=https%3A%2F%2Fwww.bbc.co.uk" alt="Dance Mat Typing" loading="lazy" style="max-width: 64px; max-height: 64px; width: 64px; height: 64px;" onerror="this.style.display='none'; this.parentElement.textContent='⌨️';">
+    </div><h2 class="portal-title text-base sm:text-lg font-bold leading-snug break-words">Dance Mat Typing</h2><p class="text-xs sm:text-sm mt-1 opacity-70">Typing skills</p></a></li>
+
+<li class="w-full"><a href="https://google.com/" target="_blank" rel="noopener noreferrer" class="tile block rounded-2xl p-5 text-center no-underline cursor-pointer flex flex-col h-full" style="background: var(--card-color); border: 3px solid #81C784; color: var(--text-color);">
+    <div class="tile-icon float-icon mb-3" style="display: flex; align-items: center; justify-content: center;"><img src="https://www.google.com/s2/favicons?sz=128&amp;domain_url=https%3A%2F%2Fgoogle.com" alt="Google" loading="lazy" style="max-width: 64px; max-height: 64px; width: 64px; height: 64px;" onerror="this.style.display='none'; this.parentElement.textContent='🔍';">
+    </div><h2 class="portal-title text-base sm:text-lg font-bold leading-snug break-words">Google Search</h2><p class="text-xs sm:text-sm mt-1 opacity-70">Web search</p></a></li>
+
+<li class="w-full"><a href="https://j2e.com/logo" target="_blank" rel="noopener noreferrer" class="tile block rounded-2xl p-5 text-center no-underline cursor-pointer flex flex-col h-full" style="background: var(--card-color); border: 3px solid #2E7D32; color: var(--text-color);">
+    <div class="tile-icon float-icon mb-3" style="display: flex; align-items: center; justify-content: center;"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSDwmr56rQrD6OSMgwdL5nb2otvN9p3h4tsQ&amp;s" alt="J2e Logo" loading="lazy" style="max-width: 64px; max-height: 64px; width: 64px; height: 64px;" onerror="this.style.display='none'; this.parentElement.textContent='🎯';">
+    </div><h2 class="portal-title text-base sm:text-lg font-bold leading-snug break-words">J2e Logo</h2><p class="text-xs sm:text-sm mt-1 opacity-70">Programming</p></a></li>
+
+<li class="w-full"><a href="https://library.libresoft.co.uk/8252269-9ud884ax0gyaau7etx1a-sps/" target="_blank" rel="noopener noreferrer" class="tile block rounded-2xl p-5 text-center no-underline cursor-pointer flex flex-col h-full" style="background: var(--card-color); border: 3px solid #81C784; color: var(--text-color);">
+    <div class="tile-icon float-icon mb-3" style="display: flex; align-items: center; justify-content: center;"><img src="https://www.heworthgrange.org/_site/data/files/images/auto_upload/page/DE0653C44B650254C9DBBC065B55B1AF.png" alt="Libresoft" loading="lazy" style="max-width: 64px; max-height: 64px; width: 64px; height: 64px;" onerror="this.style.display='none'; this.parentElement.textContent='📚';">
+    </div><h2 class="portal-title text-base sm:text-lg font-bold leading-snug break-words">Libresoft</h2><p class="text-xs sm:text-sm mt-1 opacity-70">Library books</p></a></li>
+
+<li class="w-full"><a href="https://literacygold.co.uk/Account/Login" target="_blank" rel="noopener noreferrer" class="tile block rounded-2xl p-5 text-center no-underline cursor-pointer flex flex-col h-full" style="background: var(--card-color); border: 3px solid #2E7D32; color: var(--text-color);">
+    <div class="tile-icon float-icon mb-3" style="display: flex; align-items: center; justify-content: center;"><img src="https://www.google.com/s2/favicons?sz=128&amp;domain_url=https%3A%2F%2Fwww.literacygold.co.uk" alt="Literacy Gold" loading="lazy" style="max-width: 64px; max-height: 64px; width: 64px; height: 64px;" onerror="this.style.display='none'; this.parentElement.textContent='📖';">
+    </div><h2 class="portal-title text-base sm:text-lg font-bold leading-snug break-words">Literacy Gold</h2><p class="text-xs sm:text-sm mt-1 opacity-70">Reading &amp; writing</p></a></li>
+
+<li class="w-full"><a href="https://login.mathletics.com/" target="_blank" rel="noopener noreferrer" class="tile block rounded-2xl p-5 text-center no-underline cursor-pointer flex flex-col h-full" style="background: var(--card-color); border: 3px solid #81C784; color: var(--text-color);">
+    <div class="tile-icon float-icon mb-3" style="display: flex; align-items: center; justify-content: center;"><img src="https://www.google.com/s2/favicons?sz=64&amp;domain_url=https%3A%2F%2Flogin.mathletics.com%2F" alt="Mathletics" loading="lazy" style="max-width: 64px; max-height: 64px; width: 64px; height: 64px;" onerror="this.style.display='none'; this.parentElement.textContent='🔢';">
+    </div><h2 class="portal-title text-base sm:text-lg font-bold leading-snug break-words">Mathletics</h2><p class="text-xs sm:text-sm mt-1 opacity-70">Maths homework</p></a></li>
+
+<li class="w-full"><a href="https://paintz.app/" target="_blank" rel="noopener noreferrer" class="tile block rounded-2xl p-5 text-center no-underline cursor-pointer flex flex-col h-full" style="background: var(--card-color); border: 3px solid #2E7D32; color: var(--text-color);">
+    <div class="tile-icon float-icon mb-3" style="display: flex; align-items: center; justify-content: center;"><img src="https://www.google.com/s2/favicons?sz=128&amp;domain_url=https%3A%2F%2Fwww.paintz.app" alt="PaintZ" loading="lazy" style="max-width: 64px; max-height: 64px; width: 64px; height: 64px;" onerror="this.style.display='none'; this.parentElement.textContent='🖼️';">
+    </div><h2 class="portal-title text-base sm:text-lg font-bold leading-snug break-words">PaintZ</h2><p class="text-xs sm:text-sm mt-1 opacity-70">Art &amp; drawing</p></a></li>
+
+<li class="w-full"><a href="https://scratch.mit.edu/projects/editor" target="_blank" rel="noopener noreferrer" class="tile block rounded-2xl p-5 text-center no-underline cursor-pointer flex flex-col h-full" style="background: var(--card-color); border: 3px solid #81C784; color: var(--text-color);">
+    <div class="tile-icon float-icon mb-3" style="display: flex; align-items: center; justify-content: center;"><img src="https://seeklogo.com/images/S/scratch-logo-B13B10E544-seeklogo.com.png" alt="Scratch" loading="lazy" style="max-width: 64px; max-height: 64px; width: 64px; height: 64px;" onerror="this.style.display='none'; this.parentElement.textContent='💻';">
+    </div><h2 class="portal-title text-base sm:text-lg font-bold leading-snug break-words">Scratch</h2><p class="text-xs sm:text-sm mt-1 opacity-70">Coding</p></a></li>
+
+<li class="w-full"><a href="https://app.seesaw.me/" target="_blank" rel="noopener noreferrer" class="tile block rounded-2xl p-5 text-center no-underline cursor-pointer flex flex-col h-full" style="background: var(--card-color); border: 3px solid #2E7D32; color: var(--text-color);">
+    <div class="tile-icon float-icon mb-3" style="display: flex; align-items: center; justify-content: center;"><img src="https://www.google.com/s2/favicons?sz=64&amp;domain_url=https%3A%2F%2Fseesaw.com" alt="Seesaw" loading="lazy" style="max-width: 64px; max-height: 64px; width: 64px; height: 64px;" onerror="this.style.display='none'; this.parentElement.textContent='📱';">
+    </div><h2 class="portal-title text-base sm:text-lg font-bold leading-snug break-words">Seesaw</h2><p class="text-xs sm:text-sm mt-1 opacity-70">Portfolio</p></a></li>
+
+<li class="w-full"><a href="https://www.stokenchurchprimary.co.uk/" target="_blank" rel="noopener noreferrer" class="tile block rounded-2xl p-5 text-center no-underline cursor-pointer flex flex-col h-full" style="background: var(--card-color); border: 3px solid #81C784; color: var(--text-color);">
+    <div class="tile-icon float-icon mb-3" style="display: flex; align-items: center; justify-content: center;"><img src="https://www.google.com/s2/favicons?sz=64&amp;domain_url=https%3A%2F%2Fwww.stokenchurchprimary.co.uk%2F" alt="School Website" loading="lazy" style="max-width: 64px; max-height: 64px; width: 64px; height: 64px;" onerror="this.style.display='none'; this.parentElement.textContent='🏫';">
+    </div><h2 class="portal-title text-base sm:text-lg font-bold leading-snug break-words">Stokenchurch</h2><p class="text-xs sm:text-sm mt-1 opacity-70">School website</p></a></li>
+
+<li class="w-full"><a href="https://www.timestables.co.uk/" target="_blank" rel="noopener noreferrer" class="tile block rounded-2xl p-5 text-center no-underline cursor-pointer flex flex-col h-full" style="background: var(--card-color); border: 3px solid #2E7D32; color: var(--text-color);">
+    <div class="tile-icon float-icon mb-3" style="display: flex; align-items: center; justify-content: center;"><img src="https://www.google.com/s2/favicons?sz=64&amp;domain_url=https%3A%2F%2Fwww.timestables.co.uk%2F" alt="Timestables" loading="lazy" style="max-width: 64px; max-height: 64px; width: 64px; height: 64px;" onerror="this.style.display='none'; this.parentElement.textContent='🔢';">
+    </div><h2 class="portal-title text-base sm:text-lg font-bold leading-snug break-words">Timestables</h2><p class="text-xs sm:text-sm mt-1 opacity-70">Maths tables</p></a></li>
+
+<li class="w-full"><a href="https://play.ttrockstars.com/" target="_blank" rel="noopener noreferrer" class="tile block rounded-2xl p-5 text-center no-underline cursor-pointer flex flex-col h-full" style="background: var(--card-color); border: 3px solid #81C784; color: var(--text-color);">
+    <div class="tile-icon float-icon mb-3" style="display: flex; align-items: center; justify-content: center;"><img src="https://www.google.com/s2/favicons?sz=128&amp;domain_url=https%3A%2F%2Fplay.ttrockstars.com%2F" alt="TTRockstars" loading="lazy" style="max-width: 64px; max-height: 64px; width: 64px; height: 64px;" onerror="this.style.display='none'; this.parentElement.textContent='⭐';">
+    </div><h2 class="portal-title text-base sm:text-lg font-bold leading-snug break-words">TTRockstars</h2><p class="text-xs sm:text-sm mt-1 opacity-70">Times tables</p></a></li>
+
+<li class="w-full"><a href="https://stokenchurch.typingclub.com/" target="_blank" rel="noopener noreferrer" class="tile block rounded-2xl p-5 text-center no-underline cursor-pointer flex flex-col h-full" style="background: var(--card-color); border: 3px solid #2E7D32; color: var(--text-color);">
+    <div class="tile-icon float-icon mb-3" style="display: flex; align-items: center; justify-content: center;"><img src="https://www.google.com/s2/favicons?sz=256&domain_url=https%3A%2F%2Fwww.edclub.com%2F" alt="Typing Club" loading="lazy" style="max-width: 64px; max-height: 64px; width: 64px; height: 64px;" onerror="this.style.display='none'; this.parentElement.textContent='⌨️';">
+    </div><h2 class="portal-title text-base sm:text-lg font-bold leading-snug break-words">Typing Club</h2><p class="text-xs sm:text-sm mt-1 opacity-70">Practise typing skills</p></a></li>
+
+<li class="w-full"><a href="https://twinkl.com/learn" target="_blank" rel="noopener noreferrer" class="tile block rounded-2xl p-5 text-center no-underline cursor-pointer flex flex-col h-full" style="background: var(--card-color); border: 3px solid #81C784; color: var(--text-color);">
+    <div class="tile-icon float-icon mb-3" style="display: flex; align-items: center; justify-content: center;"><img src="https://www.google.com/s2/favicons?sz=128&amp;domain_url=https%3A%2F%2Ftwinkl.com" alt="Twinkl Go" loading="lazy" style="max-width: 64px; max-height: 64px; width: 64px; height: 64px;" onerror="this.style.display='none'; this.parentElement.textContent='📚';">
+    </div><h2 class="portal-title text-base sm:text-lg font-bold leading-snug break-words">Twinkl Go</h2><p class="text-xs sm:text-sm mt-1 opacity-70">Learning resources</p></a></li>        
+       </ul>
+      </nav>
+     </main>
+     <footer class="text-center mt-10 pb-6">
+      <p class="text-lg sm:text-xl font-black" style="line-height: 1.6; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><span style="color: #81C784;">READY</span> <span style="color: #FFFFFF;"> · </span> <span style="color: #FFFFFF;">RESPECTFUL</span> <span style="color: #81C784;"> · </span> <span style="color: #81C784;">SAFE</span> <span style="color: #FFFFFF;"> · </span> <span style="color: #FFFFFF;">RESILIENT</span> <span style="color: #81C784;"> · </span> <span style="color: #81C784;">CURIOUS</span> <span style="color: #FFFFFF;"> · </span> <span style="color: #FFFFFF;">CONFIDENT</span> <span style="color: #81C784;"> · </span> <span style="color: #81C784;">INDEPENDENT</span> <span style="color: #FFFFFF;"> · </span> <span style="color: #FFFFFF;">SUCCESSFUL</span></p>
+     </footer>
+    </div>
+  </div>
+  <script>
+    const defaultConfig = {
+      background_color: '#1B5E20',
+      card_color: '#FFFFFF',
+      text_color: '#1B5E20',
+      primary_action: '#2E7D32',
+      secondary_action: '#81C784',
+      font_family: 'Baloo 2',
+      font_size: 16,
+      page_title: 'Stokenchurch Primary School Learning Portal',
+      page_subtitle: 'Click a tile to start exploring! 🚀'
+    };
+
+    function applyConfig(config) {
+      const root = document.documentElement.style;
+      const bg = config.background_color || defaultConfig.background_color;
+      const card = config.card_color || defaultConfig.card_color;
+      const text = config.text_color || defaultConfig.text_color;
+      const primary = config.primary_action || defaultConfig.primary_action;
+      const secondary = config.secondary_action || defaultConfig.secondary_action;
+
+      root.setProperty('--bg-color', bg);
+      root.setProperty('--card-color', card);
+      root.setProperty('--text-color', text);
+      root.setProperty('--primary-action', primary);
+      root.setProperty('--secondary-action', secondary);
+
+      const titleEl = document.getElementById('page-title');
+      const subtitleEl = document.getElementById('page-subtitle');
+      if (titleEl) titleEl.textContent = config.page_title || defaultConfig.page_title;
+      if (subtitleEl) subtitleEl.textContent = config.page_subtitle || defaultConfig.page_subtitle;
+
+      const customFont = config.font_family || defaultConfig.font_family;
+      const titleStack = `${customFont}, cursive`;
+      const bodyStack = `Nunito, ${customFont}, sans-serif`;
+
+      document.querySelectorAll('.portal-title').forEach(el => { el.style.fontFamily = titleStack; });
+      document.querySelector('.portal-wrapper').style.fontFamily = bodyStack;
+
+      const baseSize = config.font_size || defaultConfig.font_size;
+      if (titleEl) titleEl.style.fontSize = `${baseSize * 3}px`;
+      if (subtitleEl) subtitleEl.style.fontSize = `${baseSize * 1.25}px`;
+
+      document.querySelectorAll('.tile h2').forEach(el => { el.style.fontSize = `${baseSize * 1.1}px`; });
+      document.querySelectorAll('.tile p').forEach(el => { el.style.fontSize = `${baseSize * 0.8}px`; });
+
+      document.querySelectorAll('.tile').forEach((tile) => {
+        tile.style.background = card;
+        tile.style.color = text;
+      });
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig: defaultConfig,
+        onConfigChange: async (config) => { applyConfig(config); },
+        mapToCapabilities: (config) => ({
+          recolorables: [
+            { get: () => config.background_color || defaultConfig.background_color, set: (v) => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
+            { get: () => config.card_color || defaultConfig.card_color, set: (v) => { config.card_color = v; window.elementSdk.setConfig({ card_color: v }); } },
+            { get: () => config.text_color || defaultConfig.text_color, set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+            { get: () => config.primary_action || defaultConfig.primary_action, set: (v) => { config.primary_action = v; window.elementSdk.setConfig({ primary_action: v }); } },
+            { get: () => config.secondary_action || defaultConfig.secondary_action, set: (v) => { config.secondary_action = v; window.elementSdk.setConfig({ secondary_action: v }); } }
+          ],
+          fontEditable: { get: () => config.font_family || defaultConfig.font_family, set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); } },
+          fontSizeable: { get: () => config.font_size || defaultConfig.font_size, set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); } }
+        }),
+        mapToEditPanelValues: (config) => new Map([
+          ['page_title', config.page_title || defaultConfig.page_title],
+          ['page_subtitle', config.page_subtitle || defaultConfig.page_subtitle]
+        ])
+      });
+    }
+  </script>
+ </body>
+</html>
